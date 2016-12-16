@@ -3,11 +3,20 @@
   "logging": {
     "level": "DEBUG"
   },
+  "services": [
+    {
+      "name": "client",
+      "port": 80,
+      "health": ["echo", "health"],
+      "poll": 11,
+      "ttl": 29
+    }
+  ],
   "backends": [
     {
       "name": "server",
       "poll": 17,
-      "onChange": ["curl", "localhost:8500/v1/health/service/server"],
+      "onChange": ["echo", "onChange"],
       "timeout": "30s"
     }
   ],
