@@ -7,7 +7,7 @@
     {
       "name": "client",
       "port": 80,
-      "health": ["echo", "health"],
+      "health": "/usr/local/bin/client-health",
       "poll": 11,
       "ttl": 29
     }
@@ -16,7 +16,7 @@
     {
       "name": "server",
       "poll": 17,
-      "onChange": ["echo", "onChange"],
+      "onChange": "/usr/local/bin/client-backends-onchange",
       "timeout": "30s"
     }
   ],

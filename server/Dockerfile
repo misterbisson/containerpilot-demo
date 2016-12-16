@@ -44,6 +44,7 @@ RUN set -ex \
 
 # Copy our configuration, helper scripts, templates, and top-level content
 COPY etc /etc
+COPY bin /usr/local/bin
 
 CMD ["/usr/local/bin/containerpilot", \
     "sleep", "365d"]
