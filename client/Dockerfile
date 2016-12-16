@@ -41,8 +41,21 @@ RUN set -ex \
 
 
 
+# Install Consul template
+# Releases at https://releases.hashicorp.com/consul-template/
+RUN set -ex \
+    && export CONSUL_TEMPLATE_VERSION=0.16.0 \
+    && export CONSUL_TEMPLATE_CHECKSUM=064b0b492bb7ca3663811d297436a4bbf3226de706d2b76adade7021cd22e156 \
+    && curl -L --retry 7 --fail -Lso /tmp/consul-template.zip "https://releases.hashicorp.com/consul-template/${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip" \
+    && echo "${CONSUL_TEMPLATE_CHECKSUM}  /tmp/consul-template.zip" | sha256sum -c \
+    && unzip /tmp/consul-template.zip -d /usr/local/bin \
+    && rm /tmp/consul-template.zip
+
+
+
 # Copy our configuration, helper scripts, templates, and top-level content
 COPY etc /etc
+COPY bin /usr/local/bin
 
 CMD ["/usr/local/bin/containerpilot", \
     "sleep", "365d"]

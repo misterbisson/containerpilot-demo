@@ -17,23 +17,14 @@ consul:
   dns:
     - 127.0.0.1
   labels:
-    - triton.cns.services=consul
+    - triton.cns.services=cpsrb-consul
     - com.docker.swarm.affinities=["container!=~*cpsrb*"]
 
 server:
-  image: autopilotpattern/consul:latest
+  image: registry.somatote.com/cpsrb-server:latest
   restart: always
   mem_limit: 128m
   env_file: _env
   labels:
     - triton.cns.services=cpsrb-server
     - com.docker.swarm.affinities=["container!=~*cpsrb-server*"]
-
-client:
-  image: autopilotpattern/consul:latest
-  restart: always
-  mem_limit: 128m
-  env_file: _env
-  labels:
-    - triton.cns.services=cpsrb-server
-    - com.docker.swarm.affinities=["container!=~*cpsrb-client*"]
