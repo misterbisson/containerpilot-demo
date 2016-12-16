@@ -13,11 +13,11 @@ RUN apt-get update \
 
 # Add Containerpilot
 # Releases at https://github.com/joyent/containerpilot/releases
-ENV CONTAINERPILOT_VER 2.6.0
+ENV CONTAINERPILOT_VER 2.5.1
 ENV CONTAINERPILOT file:///etc/containerpilot.json
 
 RUN set -ex \
-    && export CONTAINERPILOT_CHECKSUM=c1bcd137fadd26ca2998eec192d04c08f62beb1f \
+    && export CONTAINERPILOT_CHECKSUM=b56a9aff365fd9526cd0948325f91a367a3f84a1 \
     && curl -L --retry 7 --fail -vo /tmp/containerpilot.tar.gz \
          "https://github.com/joyent/containerpilot/releases/download/${CONTAINERPILOT_VER}/containerpilot-${CONTAINERPILOT_VER}.tar.gz" \
     && echo "${CONTAINERPILOT_CHECKSUM}  /tmp/containerpilot.tar.gz" | sha1sum -c \
