@@ -1,0 +1,28 @@
+# See docker-compose.yml for further descriptions and configuration details of each service
+
+consul:
+  extends:
+    file: docker-compose.yml
+    service: consul
+  ports:
+    - 8500:8500
+
+server:
+  extends:
+    file: docker-compose.yml
+    service: server
+  build: server
+  environment:
+    - CONSUL=consul
+  links:
+    - consul:consul
+
+client:
+  extends:
+    file: docker-compose.yml
+    service: client
+  build: client
+  environment:
+    - CONSUL=consul
+  links:
+    - consul:consul

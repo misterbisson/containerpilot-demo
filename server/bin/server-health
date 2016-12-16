@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Health check"
+
+date >> /cp-debug-health.txt
+
+exit 0
