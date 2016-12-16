@@ -25,6 +25,8 @@ server:
   restart: always
   mem_limit: 128m
   env_file: _env
+  environment:
+    - CONSUL_AGENT=1
   labels:
     - triton.cns.services=cpsrb-server
     - com.docker.swarm.affinities=["container!=~*cpsrb-server*"]
@@ -34,6 +36,8 @@ client:
   restart: always
   mem_limit: 128m
   env_file: _env
+  environment:
+    - CONSUL_AGENT=1
   labels:
     - triton.cns.services=cpsrb-client
     - com.docker.swarm.affinities=["container!=~*cpsrb-client*"]
