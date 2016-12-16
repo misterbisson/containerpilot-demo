@@ -1,0 +1,39 @@
+# Consul is the service catalog that helps discovery between the components
+# Change "-bootstrap" to "-bootstrap-expect 3", then scale to 3 or more to
+# turn this into an HA Consul raft.
+consul:
+  image: autopilotpattern/consul:latest
+  command: >
+    /usr/local/bin/containerpilot
+    /bin/consul agent -server
+    -bootstrap
+    -config-dir=/etc/consul
+    -ui-dir /ui
+  restart: always
+  mem_limit: 128m
+  env_file: _env
+  ports:
+    - 8500
+  dns:
+    - 127.0.0.1
+  labels:
+    - triton.cns.services=consul
+    - com.docker.swarm.affinities=["container!=~*cpsrb*"]
+
+server:
+  image: autopilotpattern/consul:latest
+  restart: always
+  mem_limit: 128m
+  env_file: _env
+  labels:
+    - triton.cns.services=cpsrb-server
+    - com.docker.swarm.affinities=["container!=~*cpsrb-server*"]
+
+client:
+  image: autopilotpattern/consul:latest
+  restart: always
+  mem_limit: 128m
+  env_file: _env
+  labels:
+    - triton.cns.services=cpsrb-server
+    - com.docker.swarm.affinities=["container!=~*cpsrb-client*"]
