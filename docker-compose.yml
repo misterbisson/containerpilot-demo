@@ -28,3 +28,12 @@ server:
   labels:
     - triton.cns.services=cpsrb-server
     - com.docker.swarm.affinities=["container!=~*cpsrb-server*"]
+
+client:
+  image: registry.somatote.com/cpsrb-client:latest
+  restart: always
+  mem_limit: 128m
+  env_file: _env
+  labels:
+    - triton.cns.services=cpsrb-client
+    - com.docker.swarm.affinities=["container!=~*cpsrb-client*"]

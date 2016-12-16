@@ -13,6 +13,18 @@ server:
     file: docker-compose.yml
     service: server
   restart: never
+  build: server 
+  environment:
+    - CONSUL=consul
+  links:
+    - consul:consul
+
+client:
+  extends:
+    file: docker-compose.yml
+    service: client
+  restart: never
+  build: client
   environment:
     - CONSUL=consul
   links:

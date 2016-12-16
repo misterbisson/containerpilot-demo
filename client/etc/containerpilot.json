@@ -1,0 +1,35 @@
+{
+  "consul": "{{ if .CONSUL_AGENT }}localhost{{ else }}{{ .CONSUL }}{{ end }}:8500",
+  "services": [
+    {
+      "name": "client",
+      "port": 80,
+      "health": "true",
+      "poll": 11,
+      "ttl": 29
+    }
+  ],
+  "backends": [
+    {
+      "name": "server",
+      "poll": 17,
+      "onChange": "echo 'changed'",
+      "timeout": "30s"
+    }
+  ],
+  "coprocesses": [{{ if .CONSUL_AGENT }}
+    {
+      "command": ["/usr/local/bin/consul", "agent",
+                  "-data-dir=/data",
+                  "-config-dir=/config",
+                  "-rejoin",
+                  "-retry-join", "{{ .CONSUL }}",
+                  "-retry-max", "10",
+                  "-retry-interval", "10s"],
+      "restarts": "unlimited"
+    }{{ end }}],
+  "telemetry": {
+    "port": 9090,
+    "sensors": []
+  }
+}
