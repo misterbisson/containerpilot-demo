@@ -7,7 +7,7 @@
     {
       "name": "server",
       "poll": 17,
-      "onChange": ["echo", "changed"],
+      "onChange": ["curl", "localhost:8500/v1/health/service/server"],
       "timeout": "30s"
     }
   ],

@@ -7,6 +7,7 @@ RUN apt-get update \
         curl \
         jq \
         less \
+        net-tools \
         unzip \
     && rm -rf /var/lib/apt/lists/*
 
