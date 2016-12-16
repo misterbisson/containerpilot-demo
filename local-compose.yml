@@ -4,7 +4,6 @@ consul:
   extends:
     file: docker-compose.yml
     service: consul
-  restart: never
   ports:
     - 8500:8500
 
@@ -12,8 +11,7 @@ server:
   extends:
     file: docker-compose.yml
     service: server
-  restart: never
-  build: server 
+  build: server
   environment:
     - CONSUL=consul
   links:
@@ -23,7 +21,6 @@ client:
   extends:
     file: docker-compose.yml
     service: client
-  restart: never
   build: client
   environment:
     - CONSUL=consul

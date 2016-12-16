@@ -1,28 +1,14 @@
 {
   "consul": "{{ if .CONSUL_AGENT }}localhost{{ else }}{{ .CONSUL }}{{ end }}:8500",
-  "services": [
-    {
-      "name": "client",
-      "port": 80,
-      "health": ["echo", "health"],
-      "poll": 11,
-      "ttl": 29
-    }
-  ],
+  "logging": {
+    "level": "DEBUG"
+  },
   "backends": [
     {
       "name": "server",
       "poll": 17,
       "onChange": ["echo", "changed"],
       "timeout": "30s"
-    }
-  ],
-  "tasks": [
-    {
-      "name": "task",
-      "command": ["echo", "task"],
-      "frequency": "3s",
-      "timeout": "10s"
     }
   ],
   "coprocesses": [{{ if .CONSUL_AGENT }}
