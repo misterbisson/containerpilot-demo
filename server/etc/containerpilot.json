@@ -4,7 +4,7 @@
     {
       "name": "server",
       "port": 80,
-      "health": "/usr/local/bin/client-health",
+      "health": "/usr/local/bin/server-health",
       "poll": 11,
       "ttl": 29
     }
